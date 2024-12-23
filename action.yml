@@ -5,7 +5,7 @@ inputs:
   github-username:  # id of input
     description: 'Username to get email for'
     required: true
-    default: 'ascendantofrain'
+    default: 'evvanErb'
 
   token:  # id of input
     description: 'Token to login to get email'
