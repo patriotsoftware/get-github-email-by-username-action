@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: get easy email
         id: get_easy_email_test
-        uses: evvanErb/get-github-email-by-username-action@main
+        uses: patriotsoftware/get-github-email-by-username-action@test
         with:
           github-username: 'ascendantofrain'
           token: ${{ secrets.BOT_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: get easy email
         id: get_easy_email_test
-        uses: evvanErb/get-github-email-by-username-action@main
+        uses: patriotsoftware/get-github-email-by-username-action@test
         with:
           github-username: 'ascendantofrain'
 
@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: get email after bot
         id: get_email_after_bot_test
-        uses: evvanErb/get-github-email-by-username-action@main
+        uses: patriotsoftware/get-github-email-by-username-action@test
         with:
           github-username: 'ascendantofrain'
           token: ${{ secrets.BOT_TOKEN }}
@@ -54,7 +54,7 @@ jobs:
     steps:
       - name: get email after bot
         id: get_email_after_bot_test
-        uses: evvanErb/get-github-email-by-username-action@main
+        uses: patriotsoftware/get-github-email-by-username-action@test
         with:
           github-username: 'ascendantofrain'
           token: ${{ secrets.BOT_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
     steps:
       - name: fail bad email
         id: fail_bad_email_test
-        uses: evvanErb/get-github-email-by-username-action@main
+        uses: patriotsoftware/get-github-email-by-username-action@test
         with:
           github-username: 'ascendantofrain'
           token: ${{ secrets.BOT_TOKEN }}
@@ -82,7 +82,7 @@ jobs:
     steps:
       - name: get email after bot
         id: get_email_after_bot_test
-        uses: evvanErb/get-github-email-by-username-action@main
+        uses: patriotsoftware/get-github-email-by-username-action@test
         with:
           github-username: 'ascendantofrain'
           token: ${{ secrets.BOT_TOKEN }}
