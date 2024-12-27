@@ -23,7 +23,7 @@ function findEmailCommitAPI(apiData) {
   const email = apiData.substring((emailPosition + 9), (emailPosition + 9 + (apiData.substring(emailPosition + 9).indexOf('\"'))));
 
   //if found a bot email, continue searching
-  if (email.indexOf("users.noreply.github.com") >= 0) {
+  if (email.indexOf("users.noreply.github.com") >= 0 || email.indexOf("patriotsoftware.com") <= 0) {
     return findEmailCommitAPI(apiData.substring(emailPosition + 9));
   }
   else {
@@ -61,7 +61,7 @@ try {
     console.log(`[*] Falling back to old API retrieval method`);
 
     //fetch user's public events page
-    (0,node_fetch__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP)(`https://api.github.com/users/${usernameForEmail}/events/public`)
+    (0,node_fetch__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP)(`https://api.github.com/users/${usernameForEmail}/hovercard`)
     .then(function(response) {
 
       // When the page is loaded convert it to text
