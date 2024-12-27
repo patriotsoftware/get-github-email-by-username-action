@@ -53,7 +53,7 @@ try {
     const octokit = new Octokit({ auth: `${token}` });
     userNewAPIData = await octokit.request(`GET /orgs/SynergyDataSystems/${usernameForEmail}`, {});
     console.log("[*] New Command Ran")
-    console.log("[*] Data: "userNewAPIData.data)
+    console.log("[*] Data: " + userNewAPIData.data)
   } catch (error) {
     console.log("[!] " + error.message);
   }
