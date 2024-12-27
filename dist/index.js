@@ -43,17 +43,7 @@ try {
   try {
     const octokit = new Octokit({ auth: `${token}` });
     userAPIData = await octokit.request(`GET /users/${usernameForEmail}`, {});
-  } catch (error) {
-    console.log("[!] " + error.message);
-  }
-
-  //attempt new way
-  let userNewAPIData = null;
-  try {
-    const octokit = new Octokit({ auth: `${token}` });
-    userNewAPIData = await octokit.request(`GET /orgs/SynergyDataSystems/${usernameForEmail}`, {});
-    console.log("[*] New Command Ran")
-    console.log("[*] Data: " + userNewAPIData.data)
+    console.log("[*] Data:" + userAPIData.data);
   } catch (error) {
     console.log("[!] " + error.message);
   }
