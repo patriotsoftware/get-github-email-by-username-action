@@ -47,6 +47,17 @@ try {
     console.log("[!] " + error.message);
   }
 
+  //attempt new way
+  let userNewAPIData = null;
+  try {
+    const octokit = new Octokit({ auth: `${token}` });
+    userNewAPIData = await octokit.request(`GET /orgs/SynergyDataSystems/${usernameForEmail}`, {});
+    console.log("[*] New Command Ran")
+    console.log("[*] Data: "userNewAPIData.data)
+  } catch (error) {
+    console.log("[!] " + error.message);
+  }
+
   // Extract the email if the user's API was accessed successfully
   let emailUserpage = null;
   if (userAPIData != null && userAPIData.data != null && userAPIData.data.email != null &&  userAPIData.data.email != "") {
