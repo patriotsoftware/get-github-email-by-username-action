@@ -60,7 +60,7 @@ try {
     const octokit = new Octokit({ auth: `${token}` });
     userAPIData = await octokit.request(`GET /users/${usernameForEmail}`, {});
     const jsonString = JSON.stringify(userAPIData.data);
-    // console.log("[*] Data:" + jsonString);
+    console.log("[*] Data:" + jsonString);
   } catch (error) {
     console.log("[!] " + error.message);
   }
@@ -68,11 +68,16 @@ try {
   // Extract the email if the user's API was accessed successfully
   let emailUserpage = null;
   if (userAPIData != null && userAPIData.data != null) {
-    if (userAPIData.data.email != null &&  userAPIData.data.email != "") {
-        emailUserpage = userAPIData.data.email;
+    const u_email = userAPIData.data.email;
+    const u_company = userAPIData.data.company;
+    const u_name =  userAPIData.data.name;
+
+    // Patriot email required
+    if (u_email != null && u_email != "" & u_email.indexOf("@patriotsoftware.com") > 0) {
+        emailUserpage = u_email;
     }     
-    else if (userAPIData.data.company != null && userAPIData.data.company != "" && userAPIData.data.name != null && userAPIData.data.name != "" && userAPIData.data.company.toLowerCase().indexOf("patriotsoftware") > 0 ){
-        emailUserpage = fabricatePatriotEmail(userAPIData.data.name);
+    else if (u_company != null && u_company != "" && u_name != null && u_name != "" && u_company.toLowerCase().indexOf("patriotsoftware") > 0 ){
+        emailUserpage = fabricatePatriotEmail(u_name);
     }
   }
 
