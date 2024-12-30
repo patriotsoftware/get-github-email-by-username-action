@@ -33,17 +33,18 @@ function findEmailCommitAPI(apiData) {
 
 // attempt to piece together Patriot email (ugly, but last alternative)
 function fabricatePatriotEmail(name) {
-    // Split the name into parts
-    const parts = name.trim().split(" ");
-
-    // Extract the first letter of the first name
-    const firstInitial = parts[0]?.charAt(0).toLowerCase();
-
-    // Get the last name
-    const lastName = parts[parts.length - 1]?.toLowerCase();
-
-    // Combine and return without spaces
-    return `${firstInitial}${lastName}@patriotsoftware.com`;
+     // Split the name into parts
+     const parts = name.trim().split(" ");
+    
+     // Extract the first name and last name (middle name is excluded)
+     const firstName = parts[0];
+     const lastName = parts[parts.length - 1];
+     
+     // Create the desired format and convert to lowercase
+     const generatedEmail = `${firstName[0]}${lastName}@patriotsoftware.com`.toLowerCase();
+     console.log("[*] Generated Patriot email:" + generatedEmail);
+     
+     return generatedEmail;
 }
 
 try {
@@ -59,7 +60,7 @@ try {
     const octokit = new Octokit({ auth: `${token}` });
     userAPIData = await octokit.request(`GET /users/${usernameForEmail}`, {});
     const jsonString = JSON.stringify(userAPIData.data);
-    console.log("[*] Data:" + jsonString);
+    // console.log("[*] Data:" + jsonString);
   } catch (error) {
     console.log("[!] " + error.message);
   }
