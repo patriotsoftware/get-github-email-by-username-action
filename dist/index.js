@@ -71,7 +71,7 @@ try {
         emailUserpage = userAPIData.data.email;
     }     
     else if (userAPIData.data.company != null && userAPIData.data.company != "" && userAPIData.data.name != null && userAPIData.data.name != "" && userAPIData.data.company.toLowerCase().indexOf("patriotsoftware") > 0 ){
-        emailUserpage = formatName(userAPIData.data.name);
+        emailUserpage = fabricatePatriotEmail(userAPIData.data.name);
     }
   }
 
