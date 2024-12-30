@@ -39,6 +39,9 @@ function fabricatePatriotEmail(name) {
      // Extract the first name and last name (middle name is excluded)
      const firstName = parts[0];
      const lastName = parts[parts.length - 1];
+
+     // check for valid last name length
+     if(lastName.length <= 2) return null;
      
      // Create the desired format and convert to lowercase
      const generatedEmail = `${firstName[0]}${lastName}@patriotsoftware.com`.toLowerCase();
@@ -69,14 +72,13 @@ try {
   let emailUserpage = null;
   if (userAPIData != null && userAPIData.data != null) {
     const u_email = userAPIData.data.email;
-    const u_company = userAPIData.data.company;
     const u_name =  userAPIData.data.name;
 
     // Patriot email required
     if (u_email != null && u_email != "" & u_email.indexOf("@patriotsoftware.com") > 0) {
         emailUserpage = u_email;
     }     
-    else if (u_company != null && u_company != "" && u_name != null && u_name != "" && u_company.toLowerCase().indexOf("patriotsoftware") > 0 ){
+    else if (u_name != null && u_name != ""){
         emailUserpage = fabricatePatriotEmail(u_name);
     }
   }
