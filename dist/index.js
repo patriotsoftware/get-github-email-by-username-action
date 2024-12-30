@@ -22,13 +22,28 @@ function findEmailCommitAPI(apiData) {
 
   const email = apiData.substring((emailPosition + 9), (emailPosition + 9 + (apiData.substring(emailPosition + 9).indexOf('\"'))));
 
-  //if found a bot email, continue searching
+  //if found a bot or none Patriot email, continue searching
   if (email.indexOf("users.noreply.github.com") >= 0 || email.indexOf("patriotsoftware.com") <= 0) {
     return findEmailCommitAPI(apiData.substring(emailPosition + 9));
   }
   else {
     return email;
   }
+}
+
+// attempt to piece together Patriot email (ugly, but last alternative)
+function fabricatePatriotEmail(name: string): string {
+    // Split the name into parts
+    const parts = name.trim().split(" ");
+
+    // Extract the first letter of the first name
+    const firstInitial = parts[0]?.charAt(0).toLowerCase();
+
+    // Get the last name
+    const lastName = parts[parts.length - 1]?.toLowerCase();
+
+    // Combine and return without spaces
+    return `${firstInitial}${lastName}@patriotsoftware.com`;
 }
 
 try {
@@ -51,36 +66,18 @@ try {
 
   // Extract the email if the user's API was accessed successfully
   let emailUserpage = null;
-  if (userAPIData != null && userAPIData.data != null && userAPIData.data.email != null &&  userAPIData.data.email != "") {
-    emailUserpage = userAPIData.data.email;
+  if (userAPIData != null && userAPIData.data != null) {
+    if (userAPIData.data.email != null &&  userAPIData.data.email != "") {
+        emailUserpage = userAPIData.data.email;
+    }     
+    else if (userAPIData.data.company != null && userAPIData.data.company != "" && userAPIData.data.name != null && userAPIData.data.name != "" && userAPIData.data.company.toLowerCase().indexOf("patriotsoftware") > 0 ){
+        emailUserpage = formatName(userAPIData.data.name);
+    }
   }
 
   //email not found on user's API page or failed to authenticate with token, fallback to old method to attempt email retrieval
   if (emailUserpage == null) {
-
-    console.log(`[*] Falling back to old API retrieval method`);
-
-    //fetch user's public events page
-    (0,node_fetch__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP)(`https://api.github.com/users/${usernameForEmail}/hovercard`)
-    .then(function(response) {
-
-      // When the page is loaded convert it to text
-      return response.text()
-    })
-    .then((apiData) => {
-
-      const emailEventsPage = findEmailCommitAPI(apiData);
-
-      if (emailEventsPage == null) {
-        throw Error('[!!!] Could not find email in API Data');
-      }
-
-      console.log(`[*] Found ${usernameForEmail}\'s email: ${emailEventsPage}`)
-      core.setOutput("email", emailEventsPage);
-    })
-    .catch((error) => {
-      core.setFailed(error.message);
-    });
+    console.log(`[*] Unable to find Patriot email. Please verify user's GitHub profile is configured profile and email is set to public.`);
   }
   else {
     console.log(`[*] Found ${usernameForEmail}\'s email: ${emailUserpage}`)
