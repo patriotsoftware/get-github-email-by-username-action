@@ -32,7 +32,7 @@ function findEmailCommitAPI(apiData) {
 }
 
 // attempt to piece together Patriot email (ugly, but last alternative)
-function fabricatePatriotEmail(name: string): string {
+function fabricatePatriotEmail(name) {
     // Split the name into parts
     const parts = name.trim().split(" ");
 
