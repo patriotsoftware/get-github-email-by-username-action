@@ -13,9 +13,9 @@ jobs:
     steps:
       - name: get easy email
         id: get_easy_email_test
-        uses: patriotsoftware/get-github-email-by-username-action@test
+        uses: evvanErb/get-github-email-by-username-action@main
         with:
-          github-username: 'ascendantofrain'
+          github-username: 'evvanErb'
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Echo the output email
@@ -27,9 +27,9 @@ jobs:
     steps:
       - name: get easy email
         id: get_easy_email_test
-        uses: patriotsoftware/get-github-email-by-username-action@test
+        uses: evvanErb/get-github-email-by-username-action@main
         with:
-          github-username: 'ascendantofrain'
+          github-username: 'evvanErb'
 
       - name: Echo the output email
         run: echo "The email is ${{ steps.get_easy_email_test.outputs.email }}"
@@ -40,9 +40,9 @@ jobs:
     steps:
       - name: get email after bot
         id: get_email_after_bot_test
-        uses: patriotsoftware/get-github-email-by-username-action@test
+        uses: evvanErb/get-github-email-by-username-action@main
         with:
-          github-username: 'ascendantofrain'
+          github-username: 'highly0'
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Echo the output email
@@ -54,9 +54,9 @@ jobs:
     steps:
       - name: get email after bot
         id: get_email_after_bot_test
-        uses: patriotsoftware/get-github-email-by-username-action@test
+        uses: evvanErb/get-github-email-by-username-action@main
         with:
-          github-username: 'ascendantofrain'
+          github-username: 'jaronson13'
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Echo the output email
@@ -68,9 +68,9 @@ jobs:
     steps:
       - name: fail bad email
         id: fail_bad_email_test
-        uses: patriotsoftware/get-github-email-by-username-action@test
+        uses: evvanErb/get-github-email-by-username-action@main
         with:
-          github-username: 'ascendantofrain'
+          github-username: 'hstought'
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Echo the output email (Should not run)
@@ -82,9 +82,9 @@ jobs:
     steps:
       - name: get email after bot
         id: get_email_after_bot_test
-        uses: patriotsoftware/get-github-email-by-username-action@test
+        uses: evvanErb/get-github-email-by-username-action@main
         with:
-          github-username: 'ascendantofrain'
+          github-username: 'evvvvvaaannnnneeerrrbbb'
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Echo the output email (Should not run)
