@@ -12,25 +12,6 @@ __nccwpck_require__.r(__webpack_exports__);
 const { Octokit } = __nccwpck_require__(9163);
 const core = __nccwpck_require__(6984);
 
-function findEmailCommitAPI(apiData) {
-
-  const emailPosition = apiData.indexOf("\"email\":\"");
-
-  if (emailPosition < 0) {
-    return null;
-  }
-
-  const email = apiData.substring((emailPosition + 9), (emailPosition + 9 + (apiData.substring(emailPosition + 9).indexOf('\"'))));
-
-  //if found a bot or none Patriot email, continue searching
-  if (email.indexOf("users.noreply.github.com") >= 0 || email.indexOf("patriotsoftware.com") <= 0) {
-    return findEmailCommitAPI(apiData.substring(emailPosition + 9));
-  }
-  else {
-    return email;
-  }
-}
-
 // attempt to piece together Patriot email (ugly, but last alternative)
 function fabricatePatriotEmail(name) {
      // Split the name into parts
@@ -62,30 +43,32 @@ try {
   try {
     const octokit = new Octokit({ auth: `${token}` });
     userAPIData = await octokit.request(`GET /users/${usernameForEmail}`, {});
-    const jsonString = JSON.stringify(userAPIData.data);
-    console.log("[*] Data:" + jsonString);
+    // const jsonString = JSON.stringify(userAPIData.data);
+    // console.log("[*] Data:" + jsonString);
   } catch (error) {
     console.log("[!] " + error.message);
   }
 
   // Extract the email if the user's API was accessed successfully
   let emailUserpage = null;
+  let u_email = null;
+  let u_name =  null;
   if (userAPIData != null && userAPIData.data != null) {
     const u_email = userAPIData.data.email;
-    const u_name =  userAPIData.data.name;
-
-    // Patriot email required
-    if (u_email != null && u_email != "" & u_email.indexOf("@patriotsoftware.com") > 0) {
-        emailUserpage = u_email;
-    }     
-    else if (u_name != null && u_name != ""){
-        emailUserpage = fabricatePatriotEmail(u_name);
-    }
+    const u_name =  userAPIData.data.name;   
   }
 
-  //email not found on user's API page or failed to authenticate with token, fallback to old method to attempt email retrieval
+  // Patriot email required
+  if (u_email != null && u_email != "" & u_email.indexOf("@patriotsoftware.com") > 0) {
+    emailUserpage = u_email;
+  }     
+  else if (u_name != null && u_name != ""){
+    emailUserpage = fabricatePatriotEmail(u_name);
+  }
+
+  //email not found on user's API page or failed to authenticate with token
   if (emailUserpage == null) {
-    console.log(`[*] Unable to find Patriot email. Please verify user's GitHub profile is configured profile and email is set to public.`);
+    console.log(`[*] Unable to find Patriot email. Please verify user's GitHub profile is configured with fist and last name or email is set to public.`);
   }
   else {
     console.log(`[*] Found ${usernameForEmail}\'s email: ${emailUserpage}`)
