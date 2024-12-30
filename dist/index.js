@@ -43,8 +43,6 @@ try {
   try {
     const octokit = new Octokit({ auth: `${token}` });
     userAPIData = await octokit.request(`GET /users/${usernameForEmail}`, {});
-    // const jsonString = JSON.stringify(userAPIData.data);
-    // console.log("[*] Data:" + jsonString);
   } catch (error) {
     console.log("[!] " + error.message);
   }
