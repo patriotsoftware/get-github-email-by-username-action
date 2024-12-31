@@ -49,11 +49,11 @@ try {
 
   // Extract the email if the user's API was accessed successfully
   let emailUserpage = null;
-  let u_email = null;
-  let u_name =  null;
+  const u_email = null;
+  const u_name =  null;
   if (userAPIData != null && userAPIData.data != null) {
-    const u_email = userAPIData.data.email;
-    const u_name =  userAPIData.data.name;   
+    u_email = userAPIData.data.email;
+    u_name =  userAPIData.data.name;   
   }
 
   // Patriot email required
@@ -66,7 +66,7 @@ try {
 
   //email not found on user's API page or failed to authenticate with token
   if (emailUserpage == null) {
-    console.log(`[*] Unable to find Patriot email. Please verify user's GitHub profile is configured with fist and last name or email is set to public.`);
+    console.log(`[*] Unable to find Patriot email. Please verify user's GitHub profile configuration.`);
   }
   else {
     console.log(`[*] Found ${usernameForEmail}\'s email: ${emailUserpage}`)
