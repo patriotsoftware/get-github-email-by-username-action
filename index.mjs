@@ -1,4 +1,6 @@
-const { Octokit } = require("@octokit/core");
+//const { Octokit } = require("@octokit/core");
+import { Octokit } from '@octokit/rest';
+const octokit = new Octokit();
 const core = require('@actions/core');
 
 // attempt to piece together Patriot email (ugly, but last alternative)
